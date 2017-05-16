@@ -7,20 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.File;
+import java.util.Arrays;
 
 public class DisplayMessageActivity extends AppCompatActivity {
-
     String filename = "testFile";
     FileOutputStream outputStream;
     FileInputStream inputStream;
-    byte[] byteHolder;
+
     String awesome = new String();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
 
@@ -28,20 +29,21 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        // Capture the layout's TextView and set the string as its text
-
+        // Writing the file
         try {
-            outputStream = openFileOutput(filename, Context.MODE_APPEND);
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
             outputStream.write(message.getBytes());
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        // Reading the File
         try {
             inputStream = openFileInput(filename);
-            inputStream.read(byteHolder, 0, 0);
-            awesome = byteHolder.toString();
+            byte[] byteHolder = new byte[inputStream.available()];
+            inputStream.read(byteHolder);
+            awesome = new String(byteHolder);
+            inputStream.close();
         } catch (Exception e){
             e.printStackTrace();
         }
