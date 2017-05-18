@@ -9,15 +9,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.File;
-import java.util.Arrays;
 
 public class DisplayMessageActivity extends AppCompatActivity {
-    String filename = "testFile";
+
     FileOutputStream outputStream;
     FileInputStream inputStream;
 
     String awesome = new String();
+    String finalString = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +30,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         // Writing the file
         try {
-            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream = openFileOutput(message, Context.MODE_PRIVATE);
             outputStream.write(message.getBytes());
             outputStream.close();
         } catch (Exception e) {
@@ -39,7 +38,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         }
         // Reading the File
         try {
-            inputStream = openFileInput(filename);
+            inputStream = openFileInput(message);
             byte[] byteHolder = new byte[inputStream.available()];
             inputStream.read(byteHolder);
             awesome = new String(byteHolder);
@@ -60,13 +59,20 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
     public void calculateBMI(View view)
     {
-        EditText heightEntered = (EditText) findViewById(R.id.heightEntered);
-        EditText weightEntered = (EditText) findViewById(R.id.weightEntered);
-        Double weight = Double.parseDouble(weightEntered.getText().toString());
-        Double height = Double.parseDouble(heightEntered.getText().toString());
-        Double bmi = (703 * weight) / (height * height);
-
-        TextView bmiText = (TextView) findViewById(R.id.BMItext);
-        bmiText.setText(bmi.toString());
+        EditText findFile = (EditText) findViewById(R.id.heightEntered);
+        String fileLoc = findFile.getText().toString();
+        try {
+            FileInputStream newInputStream = openFileInput(fileLoc);
+            byte[] byteHolderTwo = new byte[newInputStream.available()];
+            newInputStream.read(byteHolderTwo);
+            finalString = new String(byteHolderTwo);
+            newInputStream.close();
+            TextView bmiText = (TextView) findViewById(R.id.BMItext);
+            bmiText.setText(finalString);
+        } catch(Exception e)
+        {
+            TextView bmiText = (TextView) findViewById(R.id.BMItext);
+            bmiText.setText("Can't find anything!");
+        }
     }
 }

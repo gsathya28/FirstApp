@@ -32,44 +32,32 @@
         tools:ignore="ButtonCase" />
 
     <EditText
-        android:id="@+id/weightEntered"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName|number"
-        android:text="@string/enterLB"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="28dp"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.502" />
-
-    <EditText
         android:id="@+id/heightEntered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="67dp"
         android:ems="10"
-        android:inputType="textPersonName|number"
-        android:text="@string/EnterHT"
+        android:hint="@string/EnterHT"
+        android:inputType="text"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weightEntered" />
+        app:layout_constraintTop_toBottomOf="@+id/button2"/>
 
     <TextView
         android:id="@+id/BMItext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="32dp"
         android:text="BMI --"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heightEntered"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.146" />
+        app:layout_constraintVertical_bias="0.146"/>
 
     <Button
         android:id="@+id/button3"
