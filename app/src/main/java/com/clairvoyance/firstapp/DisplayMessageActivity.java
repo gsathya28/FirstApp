@@ -9,14 +9,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class DisplayMessageActivity extends AppCompatActivity {
 
     FileOutputStream outputStream;
     FileInputStream inputStream;
 
-    String awesome = new String();
-    String finalString = new String();
+    String awesome;
+    String finalString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -28,7 +30,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        // Writing the file
+        /*
         try {
             outputStream = openFileOutput(message, Context.MODE_PRIVATE);
             outputStream.write(message.getBytes());
@@ -49,6 +51,29 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(awesome);
+        */
+
+        DataTestClass e;
+        try{
+            FileInputStream fileIn = openFileInput(message);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            e = (DataTestClass) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch (IOException i)
+        {
+            i.printStackTrace();
+            return;
+        }
+        catch (ClassNotFoundException c)
+        {
+            System.out.println("DataTest not found!");
+            c.printStackTrace();
+            return;
+        }
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText(e.getName() + e.getDataInt() + e.getDataArray());
+
     }
 
     public void nextView(View view)
