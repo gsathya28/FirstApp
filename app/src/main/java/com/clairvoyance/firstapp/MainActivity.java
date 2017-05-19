@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -22,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.enterHeight);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
+
+        int x = 7;
+        int[] array = {20, 11, 10};
+        DataTestClass e = new DataTestClass(x, array);
+
+
+
+
         startActivity(intent);
     }
 }
